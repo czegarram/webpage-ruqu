@@ -382,7 +382,7 @@ p {
 
 .lead {
   margin-bottom: 20px;
-  font-size: 16.099999999999998px;
+  font-size: 14px;
   font-weight: 200;
   line-height: 1.4;
 }
@@ -2100,8 +2100,9 @@ fieldset[disabled] .btn-warning.active {
 
 .btn-danger {
   color: #ffffff;
-  background-color: #d9534f;
-  border-color: #d43f3a;
+  background-color: #4D5251;
+  border-color: #365366;
+  border:2px;
 }
 
 .btn-danger:hover,
