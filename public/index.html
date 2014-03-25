@@ -483,7 +483,7 @@ section {
 						<label for="message">Cuéntenos sobre su Proyecto</label><textarea class="form-control text-center" name="message" rows="5" cols="25"></textarea><br>
 					</div>
 					<div class="form-group">
-						<label for="submit">&nbsp;</label><input class="btn btn-lg btn-info" type="submit" name="submit" value="Enviar Mensaje">
+						<label for="submit">&nbsp;</label><input class="btn btn-lg btn-info" type="button" name="submit" value="Enviar Mensaje" onclick="mandarMensaje()">
 					</div>
 				<fieldset>
 			
@@ -566,10 +566,44 @@ jQuery('.navbar .nav > li > a').click(function(){
 <script>
 //scroll bar custom
 	jQuery(document).ready(
-  function() {  
-    jQuery("html").niceScroll({cursorcolor:"#333"});
-  }
-);
+  		function() {  
+    		jQuery("html").niceScroll({cursorcolor:"#333"});
+  		}
+	);
+
+	function mandarMensaje(){
+		//var str = $( "#ajax-contacts" ).serialize();
+		var str2 = JSON.stringify($('#ajax-contacts').serializeObject())
+		//console.log(str);
+		//console.log(str2);
+		
+		$.ajax({
+		  type: "POST",
+		  beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+		  url: "/contact",
+		  data: str2
+		})
+		  .done(function( msg ) {
+		    console.log("data: "+msg);
+		  });
+	}
+
+	$.fn.serializeObject = function()
+	{
+	    var o = {};
+	    var a = this.serializeArray();
+	    $.each(a, function() {
+	        if (o[this.name] !== undefined) {
+	            if (!o[this.name].push) {
+	                o[this.name] = [o[this.name]];
+	            }
+	            o[this.name].push(this.value || '');
+	        } else {
+	            o[this.name] = this.value || '';
+	        }
+	    });
+	    return o;
+	};
 </script>
 <!-- saved from url http://www.bootstraptor.com ==========================
 Don't remove this attribution!

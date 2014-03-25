@@ -5,7 +5,9 @@ class ContactController < ApplicationController
   # this action would look like this in order to list activated
   # clients: /clients?status=activated
   def test
-    logger.debug "Llegue"  
+    logger.debug params
+    logger.debug "Llegue" 
+    ContactMailer.contact_email("czegarram@gmail.com").deliver 
     render text: "OK"
   end
 end
