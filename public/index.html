@@ -577,11 +577,13 @@ jQuery('.navbar .nav > li > a').click(function(){
 		//console.log(str);
 		//console.log(str2);
 		
+		console.log(str2);
+
 		$.ajax({
 		  type: "POST",
 		  beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
 		  url: "/contact",
-		  data: str2
+		  data: {'temp':str2}
 		})
 		  .done(function( msg ) {
 		    console.log("data: "+msg);

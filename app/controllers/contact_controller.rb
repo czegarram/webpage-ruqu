@@ -4,10 +4,12 @@ class ContactController < ApplicationController
   # to the way in which the parameters are accessed. The URL for
   # this action would look like this in order to list activated
   # clients: /clients?status=activated
+  skip_before_action :verify_authenticity_token
+
   def test
-    logger.debug params
-    logger.debug "Llegue" 
-    ContactMailer.contact_email("czegarram@gmail.com").deliver 
+    @object = JSON.load(params["temp"])
+    ContactMailer.contact_email("czegarram@gmail.com",@object["name"],@object["email"],
+      @object["subject"],@object["message"]).deliver 
     render text: "OK"
   end
 end
