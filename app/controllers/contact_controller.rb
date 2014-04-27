@@ -8,7 +8,7 @@ class ContactController < ApplicationController
 
   def test
     @object = JSON.load(params["temp"])
-    ContactMailer.contact_email("czegarram@gmail.com",@object["name"],@object["email"],
+    ContactMailer.contact_email("dtowong@gmail.com",@object["name"],@object["email"],
       @object["subject"],@object["message"]).deliver 
     render text: "OK"
   end

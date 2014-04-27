@@ -468,7 +468,7 @@ section {
 					<h3>Cuéntenos sobre su proyecto o solicite una demo personal</h3>
 				</div>
 				<div class="text-center col-12 col-lg-12">
-				<form id="ajax-contacts" class="text-center">
+				<form id="ajax-contacts" class="text-center contact">
 				<fieldset>
 					<div class="form-group">
 						<label for="name">Nombre</label><input class="form-control text-center" type="text" name="name" value="">
@@ -566,19 +566,20 @@ jQuery('.navbar .nav > li > a').click(function(){
 <script>
 //scroll bar custom
 	jQuery(document).ready(
-  		function() {  
-    		jQuery("html").niceScroll({cursorcolor:"#333"});
-  		}
+		function() {  
+			jQuery("html").niceScroll({cursorcolor:"#333"});
+		}
 	);
+
+	function resetForm($form) {
+		$form.find('input:text, input:password, input:file, select, textarea').val('');
+		$form.find('input:radio, input:checkbox')
+			.removeAttr('checked').removeAttr('selected');
+	}
 
 	function mandarMensaje(){
 		//var str = $( "#ajax-contacts" ).serialize();
 		var str2 = JSON.stringify($('#ajax-contacts').serializeObject())
-		//console.log(str);
-		//console.log(str2);
-		
-		console.log(str2);
-
 		$.ajax({
 		  type: "POST",
 		  beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
@@ -586,7 +587,8 @@ jQuery('.navbar .nav > li > a').click(function(){
 		  data: {'temp':str2}
 		})
 		  .done(function( msg ) {
-		    console.log("data: "+msg);
+		  	resetForm($("#ajax-contacts"));
+		    alert("Mensaje Enviado!");
 		  });
 	}
 
